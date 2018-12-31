@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.ComponentModel;                                                 //still need to: Make it ask if user is done, comment all code, ReadMe file, check spelling, add a loop, add an array
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Final
+namespace Final                                                                        //As of now, Player 2 is in manual mode, not CPU mode
 {
     public partial class Form1 : Form
     {
         //bool goUp; //boolean to be used to detect player up position
         //bool goDown; //boolean to be used to detect player down position
-        int speed = 5; //integer called speed holding value of 5
-        int puckX = 5; //horizontal X speed value for the ball object
-        int puckY = 5; //vertical Y speed value for the ball object
+        //int speed = 5; //integer called speed holding value of 5                      //CPU code
+        int puckX = 5; //horizontal X speed value for the puck object
+        int puckY = 5; //vertical Y speed value for the puck object
         int score = 0; //score for the player
         int cpuPoint = 0;// score for the CPU
 
@@ -91,27 +91,50 @@ namespace Final
             }*/                                                                                             //end of CPU code
 
             //check the score
+            Random ranNumberGenerator = new Random();                                                       //test for random puck spawn after score
+            int randomNumber;
+            randomNumber = ranNumberGenerator.Next(1, 3);
             //if the puck has gone past Player 1's paddle through the left
             if (puck.Left < 0)
             {
-                puck.Left = 560; //reset the puck to the middle of the screen
-                puckX = -puckX; //change the puck's direction
-                puckX -= 2; //increase the speed
+                if (randomNumber == 1)
+                {
+                    puck.Left = 560; //reset the puck to the middle of the screen
+                    puckX = -puckX; //change the puck's direction
+                    puckX -= 2; //increase the speed
+                }
+                else if (randomNumber == 2)
+                {
+                    puck.Left = 560; //reset the puck to the middle of the screen
+                    puckX -= 2; //increase the speed
+                }
+                
                 cpuPoint++; //add 1 to player 2's score
             }
 
             //if the puck has gone past player 2's paddle on the right
+            
+            
             if (puck.Left + puck.Width > ClientSize.Width)
             {
-                puck.Left = 560; //reset the puck to the middle of the screen
-                puckX = -puckX; //change the puck's direction
-                puckX -= 2; //increase the speed
+                if (randomNumber == 1)
+                {
+                    puck.Left = 560; //reset the puck to the middle of the screen
+                    puckX = -puckX; //change the puck's direction
+                    puckX -= 2; //increase the speed
+                }
+                else if (randomNumber == 2)
+                {
+                    puck.Left = 560; //reset the puck to the middle of the screen
+                    puckX -= 2; //increase the speed
+                }
+                
                 score++; //add 1 to player 1's score
             }
 
+                                                                                                
 
-
-
+            
 
             //controlling the puck
 
@@ -127,13 +150,15 @@ namespace Final
 
 
             //if the puck hits either paddle
-            if (puck.Bounds.IntersectsWith(Player1.Bounds) || puck.Bounds.IntersectsWith(Player2.Bounds))
+            if (puck.Bounds.IntersectsWith(Player1.Bounds) || puck.Bounds.IntersectsWith(Player2.Bounds))      //collision stuff
+            {
+                puckX = -puckX; //bounce the puck in the other direction
+            }
+            else if ((puck.Bounds.IntersectsWith(topLeftBarrier.Bounds) || puck.Bounds.IntersectsWith(bottomLeftBarrier.Bounds) || puck.Bounds.IntersectsWith(topRightBarrier.Bounds) || puck.Bounds.IntersectsWith(bottomRightBarrier.Bounds)))
             {
                 puckX = -puckX; //bounce the puck in the other direction
             }
 
-
-            
 
 
             //final score and ending the game
