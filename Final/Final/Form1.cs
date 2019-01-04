@@ -153,7 +153,7 @@ namespace Final                                                                 
             if (puck.Bounds.IntersectsWith(Player1.Bounds) || puck.Bounds.IntersectsWith(Player2.Bounds))      //collision stuff
             {
                 puckX = -puckX; //bounce the puck in the other direction
-                puckY = -puckY; //bounce the puck in the other direction
+                puckY = -puckY; //bounce the puck in the other direction 
             }
             else if ((puck.Bounds.IntersectsWith(topLeftBarrier.Bounds) || puck.Bounds.IntersectsWith(bottomLeftBarrier.Bounds) || puck.Bounds.IntersectsWith(topRightBarrier.Bounds) || puck.Bounds.IntersectsWith(bottomRightBarrier.Bounds)))
             {
